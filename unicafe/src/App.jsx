@@ -6,27 +6,37 @@ const FeedbackButton = ({ text, handleClick }) => {
 
 const StatisticsLine = ({ text, value, children }) => {
   return (
-    <p>
-      {Number.isNaN(value)
-        ? `Reviews are needed in order to calculate ${text}`
-        : `${text} ${value}`}{" "}
-      {children}
-    </p>
+    <>
+      {Number.isNaN(value) ? (
+        <tr>
+          <td>Reviews are needed in order to calculate {text}</td>
+        </tr>
+      ) : (
+        <tr>
+          <td>{text}</td>
+          <td>
+            {value} {children}
+          </td>
+        </tr>
+      )}
+    </>
   );
 };
 
 const Statistics = ({ good, bad, neutral, total, average, positive }) => {
   return (
-    <div className="statistics-container">
-      <StatisticsLine text={"good"} value={good} />
-      <StatisticsLine text={"bad"} value={bad} />
-      <StatisticsLine text={"neutral"} value={neutral} />
-      <StatisticsLine text={"all"} value={total} />
-      <StatisticsLine text={"average"} value={average} />
-      <StatisticsLine text={"positive percentage"} value={positive * 100}>
-        %
-      </StatisticsLine>
-    </div>
+    <table className="statistics-table">
+      <tbody>
+        <StatisticsLine text={"good"} value={good} />
+        <StatisticsLine text={"bad"} value={bad} />
+        <StatisticsLine text={"neutral"} value={neutral} />
+        <StatisticsLine text={"all"} value={total} />
+        <StatisticsLine text={"average"} value={average} />
+        <StatisticsLine text={"positive percentage"} value={positive * 100}>
+          %
+        </StatisticsLine>
+      </tbody>
+    </table>
   );
 };
 
