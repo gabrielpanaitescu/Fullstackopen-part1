@@ -12,11 +12,23 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
-  const [selected, setSelected] = useState(0);
+  // const transformedAnecdotes = anecdotes.reduce((accum, currValue, index) => {
+  //   accum[index] = { anecdote: currValue, points: 0 };
+  //   return accum;
+  // }, {});
+  // console.log(transformedAnecdotes);
+  // console.log(
+  //   Math.max(...Object.values(transformedAnecdotes).map((item) => item.points))
+  // );
 
+  const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(
     Object.fromEntries(Array.from({ length: 8 }, (_, i) => [i, 0]))
   );
+
+  const pointsArr = Object.values(points);
+  const maxValue = Math.max(...pointsArr);
+  const topAnecdote = anecdotes[pointsArr.indexOf(maxValue)];
 
   const handleVote = () => {
     setPoints((prevPoints) => {
@@ -34,10 +46,24 @@ const App = () => {
 
   return (
     <div>
-      <div>{anecdotes[selected]}</div>
-      <p>has {points[selected]} points</p>
-      <button onClick={handleVote}>vote</button>
-      <button onClick={handleNext}>next anecdote</button>
+      <section>
+        <h2>Anecdote of the day</h2>
+        <div>{anecdotes[selected]}</div>
+        <p>has {points[selected]} points</p>
+        <button onClick={handleVote}>vote</button>
+        <button onClick={handleNext}>next anecdote</button>
+      </section>
+      <section>
+        <h2>Anecdote with most votes</h2>
+        {maxValue < 1 ? (
+          <p>No votes registered yet</p>
+        ) : (
+          <>
+            <p>{topAnecdote}</p>
+            <p>has {maxValue} points</p>
+          </>
+        )}
+      </section>
     </div>
   );
 };
