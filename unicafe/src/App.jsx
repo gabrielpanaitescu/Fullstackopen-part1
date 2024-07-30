@@ -4,7 +4,7 @@ const FeedbackButton = ({ text, handleClick }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const Statistics = ({ text, value, children }) => {
+const StatisticsLine = ({ text, value, children }) => {
   return (
     <p>
       {Number.isNaN(value)
@@ -12,6 +12,21 @@ const Statistics = ({ text, value, children }) => {
         : `${text} ${value}`}{" "}
       {children}
     </p>
+  );
+};
+
+const Statistics = ({ good, bad, neutral, total, average, positive }) => {
+  return (
+    <div className="statistics-container">
+      <StatisticsLine text={"good"} value={good} />
+      <StatisticsLine text={"bad"} value={bad} />
+      <StatisticsLine text={"neutral"} value={neutral} />
+      <StatisticsLine text={"all"} value={total} />
+      <StatisticsLine text={"average"} value={average} />
+      <StatisticsLine text={"positive percentage"} value={positive * 100}>
+        %
+      </StatisticsLine>
+    </div>
   );
 };
 
@@ -42,16 +57,14 @@ const App = () => {
         {total === 0 ? (
           <p>No feedback given</p>
         ) : (
-          <div className="statistics-container">
-            <Statistics text={"good"} value={good} />
-            <Statistics text={"bad"} value={bad} />
-            <Statistics text={"neutral"} value={neutral} />
-            <Statistics text={"all"} value={total} />
-            <Statistics text={"average"} value={average} />
-            <Statistics text={"positive percentage"} value={positive * 100}>
-              %
-            </Statistics>
-          </div>
+          <Statistics
+            good={good}
+            bad={bad}
+            neutral={neutral}
+            total={total}
+            average={average}
+            positive={positive}
+          />
         )}
       </section>
     </main>
