@@ -13,12 +13,18 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [points, setPoints] = useState(new Array(8).fill(0));
+
+  const [points, setPoints] = useState(
+    Object.fromEntries(Array.from({ length: 8 }, (_, i) => [i, 0]))
+  );
 
   const handleVote = () => {
-    const arrCopy = [...points];
-    arrCopy[selected] += 1;
-    setPoints(arrCopy);
+    setPoints((prevPoints) => {
+      return {
+        ...prevPoints,
+        [selected]: prevPoints[selected] + 1,
+      };
+    });
   };
 
   const handleNext = () => {
