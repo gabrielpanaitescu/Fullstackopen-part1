@@ -3,7 +3,7 @@ import anecdotes from "./anecdotes.js";
 
 const App = () => {
   const [selected, setSelected] = useState(0);
-  const [points, setPoints] = useState(new Array(8).fill(0));
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0));
 
   const maxValue = Math.max(...points);
   const topAnecdote = anecdotes[points.indexOf(maxValue)];
@@ -15,7 +15,7 @@ const App = () => {
   };
 
   const handleNext = () => {
-    const randomNumber = Math.floor(Math.random() * 8);
+    const randomNumber = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomNumber);
   };
 
